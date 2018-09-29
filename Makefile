@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CC = g++
 SAN = -fsanitize=undefined -fsanitize=address
 FLAGS = -Wall $(SAN)
@@ -14,3 +15,11 @@ Trie.o: Trie.cpp Trie.h
 
 clean:
 	rm *.o TrieTest
+=======
+
+test: main
+	./main
+
+main: main.cpp
+	g++ -o main main.cpp
+>>>>>>> b53c10efa03c895a6bdabcb960265259cca6eb6c
