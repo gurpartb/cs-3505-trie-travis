@@ -4,13 +4,13 @@ FLAGS = -Wall $(SAN)
 DIR = ./
 
 TrieTest: Trie.o TrieTest.o
-	$(CC) $(FLAGS) -o TrieTest TrieTest.o Trie.o
+	$(CC) -o TrieTest TrieTest.o Trie.o
 
 TrieTest.o: TrieTest.cpp
-	$(CC) $(FLAGS) -c TrieTest.cpp
+	$(CC) -c TrieTest.cpp
 
 Trie.o: Trie.cpp Trie.h
-	$(CC) $(FLAGS) -c Trie.cpp
+	$(CC) -c Trie.cpp
 
 clean:
 	rm *.o TrieTest
