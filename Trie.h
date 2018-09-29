@@ -16,7 +16,7 @@
 class Trie {
 private:
 bool isValidWord;
-const unsigned int _alphabetSize = 26;
+const static unsigned int _alphabetSize=26;
 Trie* triePArray[26];
 /**
  * [This is a helper. It returns a Trie* correspoinding to the last letter in string s.]
