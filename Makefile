@@ -11,6 +11,3 @@ TrieTest.o: TrieTest.cpp
 
 Trie.o: Trie.cpp Trie.h
 	$(CC) -c Trie.cpp
-
-clean:
-	rm *.o TrieTest
