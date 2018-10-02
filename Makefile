@@ -1,5 +1,5 @@
 CC = g++
-SAN = -fsanitize=undefined -fsanitize=address
+SAN = -fsanitize=undefined -fsanitize=address -g
 FLAGS = -Wall $(SAN)
 DIR = ./
 
@@ -11,3 +11,9 @@ TrieTest.o: TrieTest.cpp
 
 Trie.o: Trie.cpp Trie.h
 	$(CC) -c Trie.cpp
+
+clean:
+	rm *.o TrieTest
+
+test: TrieTest input2.txt input3.txt
+	./TrieTest input2.txt input3.txt
