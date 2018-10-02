@@ -9,110 +9,82 @@
  */
 #include "Trie.h"
 
-Trie* Trie::getCurrentTrieP(std::string s){
-        Trie* currentP;
-        int pos = s.at(0)-97;
-        if(triePArray[pos]==NULL) {
-                return NULL;
-        }else{
-                currentP= triePArray[pos];
-        }
-        for(unsigned int i = 1; i<s.size(); i++) {
-                pos = s.at(i)-97;
-                if(currentP->triePArray[pos]==NULL) {
+int Trie::charToIndex(char character){
+        return character-ascii_a;
+}
+
+char Trie::indexToChar(int index){
+        return index+ascii_a;
+}
+
+Trie* Trie::getCurrentTrieP(std::string word){
+        Trie* currentP= this;
+        for(std::string::iterator it = word.begin(); it!=word.end(); it++) {
+                int index = charToIndex(*it);
+                if(currentP->triePArray[index])
+                        currentP= currentP->triePArray[index];
+                else
                         return NULL;
-                }else{
-                        currentP= currentP->triePArray[pos];
-                }
         }
         return currentP;
 }
 
-void Trie::allWordsInTrieP(Trie* currentP,std::string s, std::vector<std::string>* stringVectorP){
-        if(currentP->isValidWord==true) {
-                (*stringVectorP).push_back(s);
-        }
-        for(unsigned int i = 0; i<_alphabetSize; i++) {
-                if(currentP->triePArray[i]!=NULL) {
-                        std::string pass = s+char(i+97);
-                        allWordsInTrieP(currentP->triePArray[i], pass, stringVectorP);
-                }
-        }
+void Trie::allWordsInTrieP(std::string word, std::vector<std::string>* wordsVectorP){
+        if(isValidWord)
+                wordsVectorP->push_back(word);
+        for(int i = 0; i < alphabetSize; i++)
+                if(triePArray[i])
+                        triePArray[i]->allWordsInTrieP(word+indexToChar(i), wordsVectorP);
 }
 
 Trie::Trie() : isValidWord(false),triePArray(){
 }
 
 Trie::~Trie(){
-        for(unsigned int i= 0; i<_alphabetSize; i++) {
-                if(triePArray[i]!=NULL) {
-                        delete triePArray[i];
-                }
-        }
+        for(int i = 0; i < alphabetSize; i++)
+                delete triePArray[i];
 }
 
 Trie::Trie(const Trie& other) : triePArray() {
         isValidWord = other.isValidWord;
-        for (unsigned int i = 0; i < _alphabetSize; i++) {
-                if(other.triePArray[i]!=NULL) {
+        for (int i = 0; i < alphabetSize; i++)
+                if(other.triePArray[i])
                         triePArray[i]= new Trie(*(other.triePArray[i]));
-                }
-        }
 }
 
 Trie& Trie::operator=(Trie other){
-
         std::swap(isValidWord, other.isValidWord);
         std::swap(triePArray, other.triePArray);
         return *this;
 }
 
-void Trie::addAWord(std::string s){
-        if(s.size()==0) return;
-        Trie* currentP;
-        int pos = int(s.at(0)-97);
-        if(triePArray[pos]!=NULL) {
-                currentP=triePArray[pos];
-        }else{
-                triePArray[pos]=new Trie();
-                currentP=triePArray[pos];
-        }
-
-        for(unsigned int i = 1; i<s.size(); i++) {
-                pos = int(s.at(i)-97);
-                if(currentP->triePArray[pos]!=NULL) {
-                        currentP=currentP->triePArray[pos];
-                }else{
-                        currentP->triePArray[pos]=new Trie();
-                        currentP=currentP->triePArray[pos];
-                }
+void Trie::addAWord(std::string word){
+        if(word.size() == 0)
+                return;
+        Trie* currentP = this;
+        for(std::string::iterator it = word.begin(); it!=word.end(); it++) {
+                int index = charToIndex(*it);
+                if(!currentP->triePArray[index])
+                        currentP->triePArray[index] = new Trie();
+                currentP = currentP->triePArray[index];
         }
         currentP->isValidWord = true;
 }
 
-bool Trie::isAWord(std::string s){
-        if(s.size()==0) return false;
-        Trie* currentP = getCurrentTrieP(s);
-        if(currentP==NULL) {
-                return false;
-        }else{
-                return currentP->isValidWord;
-        }
+bool Trie::isAWord(std::string word){
+        if(getCurrentTrieP(word))
+                return getCurrentTrieP(word)->isValidWord;
+        return false;
 }
 
-std::vector<std::string> Trie::allWordsStartingWithPrefix(std::string s){
-        Trie* currentP;
-        std::vector<std::string>* stringVectorP;
-        std::vector<std::string> stringVector;
-        stringVectorP = &stringVector;
-        if(s.size()==0) {
-                currentP=this;
-                allWordsInTrieP(this, s, stringVectorP);
-        }else{
-                currentP= getCurrentTrieP(s);
-                if(currentP!=NULL) {
-                        allWordsInTrieP(currentP, s, stringVectorP);
-                }
-        }
-        return stringVector;
+std::vector<std::string> Trie::allWordsStartingWithPrefix(std::string word){
+        std::vector<std::string> wordsVector;
+        if(getCurrentTrieP(word))
+                getCurrentTrieP(word)->allWordsInTrieP(word, &wordsVector);
+        return wordsVector;
+}
+
+std::vector<std::string> wordsWithWildcardPrefix(std::string word){
+        std::vector<std::string> wordsVector;
+        return wordsVector;
 }

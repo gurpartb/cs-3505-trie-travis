@@ -10,27 +10,48 @@
  * @professor David Johnson
  */
 #include <iostream>
-#include <string.h>
+#include <string>
 #include <vector>
+#include <iterator>
 
 class Trie {
+
 private:
+const static int ascii_a = 'a';
+const static int ascii_z = 'z';
+const static int alphabetSize = 1 + ascii_z - ascii_a;
 bool isValidWord;
-const static unsigned int _alphabetSize=26;
-Trie* triePArray[26];
+Trie* triePArray[alphabetSize];
+
+/**
+ * [charToIndex description]
+ * @param  char [description]
+ * @return      [description]
+ */
+int charToIndex(char);
+
+/**
+ * [indexToChar description]
+ * @param  int [description]
+ * @return     [description]
+ */
+char indexToChar(int);
+
 /**
  * [This is a helper. It returns a Trie* correspoinding to the last letter in string s.]
  * @param  s [string]
  * @return   [Trie*]
  */
-Trie* getCurrentTrieP(std::string s);
+Trie* getCurrentTrieP(std::string);
+
 /**
  * [This is a helper method that adds all words below the passed Trie* to the passed by refrence vector<string>]
  * @param currentP      [Trer*]
  * @param s             [String prefix]
  * @param stringVectorP [vector<string> passed by reference]
  */
-void allWordsInTrieP(Trie* currentP,std::string s, std::vector<std::string>* stringVectorP);
+void allWordsInTrieP(std::string, std::vector<std::string>*);
+
 public:
 /**
  * Trie constructor, called to build Trie objects.
@@ -55,17 +76,19 @@ Trie& operator=(Trie other);
  * [This is public method that adds a passed in word to the Trie dictionary.]
  * @param s [description]
  */
-void addAWord(std::string s);
+void addAWord(std::string);
 /**
  * [This is public method checks the Trie for passed in word. Returns true if the word is in the Trie. Else returns false.]
  * @param  s [word string]
  * @return   [boolean]
  */
-bool isAWord(std::string s);
+bool isAWord(std::string);
 /**
  * [This is a public method that returns all words staring with prefix.
  * If words starting with prefix are not in Tris, empty vector<string> is returned.]
  * @param s [Strig prfix]
  */
-std::vector<std::string> allWordsStartingWithPrefix(std::string s);
+std::vector<std::string> allWordsStartingWithPrefix(std::string);
+
+std::vector<std::string> wordsWithWildcardPrefix(std::string word);
 };
