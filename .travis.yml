@@ -6,6 +6,8 @@ compiler:
 
 install:
   sudo apt-get install libgtest-dev
+  
+install:
   sudo apt-get install cmake
 
 script:
