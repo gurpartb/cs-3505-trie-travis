@@ -4,17 +4,20 @@ FLAGS = -Wall $(SAN)
 DIR = ./
 #$(FLAGS)
 
-TrieTest: Trie.o TrieTest.o
-	$(CC) -o TrieTest TrieTest.o Trie.o
+GOOGLEDIR = /usr/src/gtest
+GOOGLEINCLUDE = /usr/src/gtest/include
 
-TrieTest.o: TrieTest.cpp
-	$(CC) -c TrieTest.cpp
+TrieTests: Trie.o TrieTests.o
+	$(CC) -o TrieTests TrieTests.o Trie.o -pthread -L ${GOOGLEDIR} -l gtest
+
+TrieTests.o: TrieTests.cpp
+	$(CC) -c TrieTests.cpp -I ${GOOGLEINCLUDE}
 
 Trie.o: Trie.cpp Trie.h
 	$(CC) -c Trie.cpp
 
 clean:
-	rm *.o TrieTest
+	rm *.o TrieTests
 
-test: TrieTest input2.txt input3.txt
-	./TrieTest input2.txt input3.txt
+test: TrieTests input2.txt input3.txt
+	./TrieTests input2.txt input3.txt
