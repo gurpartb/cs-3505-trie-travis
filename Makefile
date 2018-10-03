@@ -2,6 +2,7 @@ CC = g++
 SAN = -fsanitize=undefined -fsanitize=address -g
 FLAGS = -Wall $(SAN)
 DIR = ./
+#$(FLAGS)
 
 TrieTest: Trie.o TrieTest.o
 	$(CC) -o TrieTest TrieTest.o Trie.o

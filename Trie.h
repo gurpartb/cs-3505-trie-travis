@@ -50,7 +50,7 @@ Trie* getCurrentTrieP(std::string);
  * @param s             [String prefix]
  * @param stringVectorP [vector<string> passed by reference]
  */
-void allWordsInTrieP(std::string, std::vector<std::string>*);
+void allWordsInTrie(std::string, std::vector<std::string>*);
 
 public:
 /**

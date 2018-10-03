@@ -29,12 +29,12 @@ Trie* Trie::getCurrentTrieP(std::string word){
         return currentP;
 }
 
-void Trie::allWordsInTrieP(std::string word, std::vector<std::string>* wordsVectorP){
+void Trie::allWordsInTrie(std::string word, std::vector<std::string>* wordsVectorP){
         if(isValidWord)
                 wordsVectorP->push_back(word);
         for(int i = 0; i < alphabetSize; i++)
                 if(triePArray[i])
-                        triePArray[i]->allWordsInTrieP(word+indexToChar(i), wordsVectorP);
+                        triePArray[i]->allWordsInTrie(word+indexToChar(i), wordsVectorP);
 }
 
 Trie::Trie() : isValidWord(false),triePArray(){
@@ -72,15 +72,17 @@ void Trie::addAWord(std::string word){
 }
 
 bool Trie::isAWord(std::string word){
-        if(getCurrentTrieP(word))
-                return getCurrentTrieP(word)->isValidWord;
+        Trie* currentP = getCurrentTrieP(word);
+        if(currentP)
+                return currentP->isValidWord;
         return false;
 }
 
 std::vector<std::string> Trie::allWordsStartingWithPrefix(std::string word){
         std::vector<std::string> wordsVector;
-        if(getCurrentTrieP(word))
-                getCurrentTrieP(word)->allWordsInTrieP(word, &wordsVector);
+        Trie* currentP = getCurrentTrieP(word);
+        if(currentP)
+                currentP->allWordsInTrie(word, &wordsVector);
         return wordsVector;
 }
 
