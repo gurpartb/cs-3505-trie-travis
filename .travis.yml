@@ -1,4 +1,17 @@
-install: true
-language: cpp
-compiler: g++
-script: make test
+language:
+  cpp
+
+compiler:
+  g++
+
+install:
+  sudo apt-get install libgtest-dev
+  sudo apt-get install cmake
+
+script:
+  mkdir _gtest
+  cd _gtest
+  sudo cmake CMakeList.txt
+  sudo make
+  cd ..
+  make test
