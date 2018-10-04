@@ -1,4 +1,4 @@
-CC = g++-6
+CC = g++
 SAN = -fsanitize=undefined -fsanitize=address -g
 FLAGS = -Wall $(SAN)
 DIR = ./
