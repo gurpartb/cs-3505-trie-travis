@@ -2,6 +2,7 @@
 #include "Trie.h"
 #include <string>
 #include <vector>
+#include <set>
 
 // 1. Test AddWords
 TEST (Trie, AddWords){
@@ -10,6 +11,7 @@ TEST (Trie, AddWords){
         EXPECT_EQ (true, trie.isAWord("cat"));
         EXPECT_EQ (false, trie.isAWord("ca"));
         EXPECT_EQ (false, trie.isAWord("cats"));
+        EXPECT_EQ (false, trie.isAWord(""));
 }
 
 TEST(Trie, CopyConstructor){
@@ -113,8 +115,25 @@ TEST (Trie, GetAllWordsInTrieEqualOverload){
   EXPECT_EQ (words, copy.allWordsStartingWithPrefix(""));
 }
 
+TEST (Trie, allWordsStartingWithPrefix_a){
+  Trie trie;
+  trie.addAWord("a");
+  trie.addAWord("ab");
+  trie.addAWord("abb");
+  trie.addAWord("ac");
+  trie.addAWord("ad");
+  trie.addAWord("b");
+  trie.addAWord("c");
+  std::vector<std::string> v;
+  v.push_back("a");
+  v.push_back("ab");
+  v.push_back("abb");
+  v.push_back("ac");
+  v.push_back("ad");
+  EXPECT_EQ(v, trie.allWordsStartingWithPrefix("a"));
+}
+
 int main(int argc, char** argv){
         ::testing::InitGoogleTest(&argc, argv);
         return RUN_ALL_TESTS();
-        //return 0;
 }
