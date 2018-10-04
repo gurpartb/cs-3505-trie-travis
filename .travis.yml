@@ -9,15 +9,9 @@ install:
   - sudo apt-get install cmake
 
 script:
-  - pwd
-  - ls
   - cd /usr/src/gtest
-  - pwd
-  - ls
   - sudo cmake CMakeLists.txt
   - sudo make
-  - ls
   - sudo cp *.a /usr/lib
   - cd /home/travis/build/University-of-Utah-CS3505/a4-testing-and-travis-fall-2018-gurpartb
-  - ls
   - make test
