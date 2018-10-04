@@ -5,15 +5,19 @@ compiler:
   g++
 
 install:
-  sudo apt-get install libgtest-dev
-
-install:
-  sudo apt-get install cmake
+  - sudo apt-get install libgtest-dev
+  - sudo apt-get install cmake
 
 script:
-  - mkdir _gtest
-  - cd _gtest
-  - sudo cmake CMakeList.txt
+  - pwd
+  - ls
+  - cd /usr/src/gtest
+  - pwd
+  - ls
+  - sudo cmake CMakeLists.txt
   - sudo make
-  - cd ..
+  - ls
+  - sudo cp *.a /usr/lib
+  - cd
+  - ls
   - make test

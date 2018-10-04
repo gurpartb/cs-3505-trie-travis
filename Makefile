@@ -4,10 +4,10 @@ FLAGS = -Wall $(SAN)
 DIR = ./
 #$(FLAGS)
 
-#GOOGLEDIR = /usr/src/gtest
-#GOOGLEINCLUDE = /usr/src/gtest/include
-GOOGLEDIR = ./gtest
-GOOGLEINCLUDE = ./gtest/include
+GOOGLEDIR = /usr/src/gtest
+GOOGLEINCLUDE = /usr/src/gtest/include
+# GOOGLEDIR = ./gtest
+# GOOGLEINCLUDE = ./gtest/include
 
 TrieTests: Trie.o TrieTests.o
 	$(CC) -o TrieTests TrieTests.o Trie.o -pthread -L ${GOOGLEDIR} -l gtest $(FLAGS)
