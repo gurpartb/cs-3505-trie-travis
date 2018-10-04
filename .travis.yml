@@ -1,13 +1,6 @@
 language:
   cpp
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-      packages:
-        - g++-6
-
+  
 install:
   - sudo apt-get install libgtest-dev
   - sudo apt-get install cmake
