@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "Trie.h"
 #include <string>
+#include <vector>
 
 // 1. Test AddWords
 TEST (Trie, AddWords){
@@ -48,6 +49,68 @@ TEST (Trie, AddDifferentWordManyTimes){
                 word += "i";
                 EXPECT_EQ (true, trie.isAWord(word));
         }
+}
+
+TEST (Trie, GetAllWordsInTrie){
+  Trie trie;
+  std::string word = "";
+  std::vector<std::string> words;
+  for(int i = 0; i < 1000; i++) {
+          word += "i";
+          words.push_back(word);
+          trie.addAWord(word);
+  }
+  EXPECT_EQ (words, trie.allWordsStartingWithPrefix(""));
+}
+
+TEST (Trie, GetAllWordsInTrie2){
+  Trie trie;
+  std::string word = "";
+  char letter = 'a';
+  std::vector<std::string> words;
+  for(int i = 0; i < 26; i++) {
+          word = letter;
+          words.push_back(word);
+          trie.addAWord(word);
+          letter += 1;
+  }
+  EXPECT_EQ (words, trie.allWordsStartingWithPrefix(""));
+}
+
+TEST (Trie, GetAllWordsInTrieCopyConstructor){
+  Trie trie;
+  std::string word = "";
+  char letter = 'a';
+  std::vector<std::string> words;
+  for(int i = 0; i < 26; i++) {
+          word = letter;
+          words.push_back(word);
+          trie.addAWord(word);
+          letter += 1;
+  }
+  Trie copy = trie;
+  EXPECT_EQ (words, copy.allWordsStartingWithPrefix(""));
+}
+
+TEST (Trie, GetAllWordsInTrieEqualOverload){
+  Trie trie;
+  std::string word = "";
+  char letter = 'a';
+  std::vector<std::string> words;
+  for(int i = 0; i < 26; i++) {
+          word = letter;
+          words.push_back(word);
+          trie.addAWord(word);
+          letter += 1;
+  }
+  Trie copy;
+  word = "ab";
+  for(int i = 0; i < 1000; i++){
+    copy.addAWord(word);
+    word += "ab";
+  }
+  copy = trie;
+  EXPECT_EQ (words, copy.allWordsStartingWithPrefix(""));
 }
 
 int main(int argc, char** argv){
