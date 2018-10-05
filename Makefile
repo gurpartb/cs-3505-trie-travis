@@ -1,6 +1,6 @@
 CC = g++
 SAN = -fsanitize=undefined -fsanitize=address -g
-FLAGS = -Wall -fsanitize=undefined -fsanitize=address -g
+FLAGS = -Wall -g
 DIR = ./
 #$(FLAGS)
 
