@@ -72,11 +72,8 @@ void Trie::addAWord(std::string word){
 }
 
 bool Trie::isAWord(std::string word){
-        //Trie* currentP = getCurrentTrieP(word);
-        // if(currentP)
-        //         return currentP->isValidWord;
-        // return false;
-        return getCurrentTrieP(word)&&getCurrentTrieP(word)->isValidWord;
+
+        return getCurrentTrieP(word) && getCurrentTrieP(word)->isValidWord;
 }
 
 std::vector<std::string> Trie::allWordsStartingWithPrefix(std::string word){
